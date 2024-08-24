@@ -1,5 +1,8 @@
 const { RegistrationModel } = require('./Schema')
 const bcrypt = require ('bcryptjs')
+const jwt = require('jsonwebtoken')
+
+const jwtUserkey = process.env.JWT_USERKEY ;
 
 
 
@@ -23,9 +26,32 @@ const handleRegistration = async (apiReq , apiRes) => {
 }
 
 // Login
+const handleLogin = async (apiReq , apiRes) => {
+  try {
+    const username = apiReq.params.username
+    const password = apiReq.params.password
+    
+    const dbResponse = await RegistrationModel.findOne({
+        username : username
+    })
+    if(dbResponse?.username){
+        const passwordMatch = await bcrypt.compare(password , dbResponse.password)
+        if(passwordMatch){
+            const token = jwt.sign({ data : username } , jwtUserkey)
+            apiRes.json({ username : dbResponse.username , token : token})
+            return;
+        }
+    }
+    apiRes.send("Login Failed")
+  } catch(error){
+    console.error("Error during Login")
+    apiRes.send("Login failed")
+  }
+}
 
 
 
 module.exports = {
-    handleRegistration
+    handleRegistration , 
+    handleLogin
 }

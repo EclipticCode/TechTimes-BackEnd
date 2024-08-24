@@ -3,7 +3,7 @@ const cors = require ("cors")
 const bodyParser  = require ('body-parser')
 const { connectDb , mongoose } = require ('./db')
 require('dotenv').config();
-const { handleRegistration } = require('./service')
+const { handleRegistration , handleLogin } = require('./service')
 
 const app = express();
 
@@ -24,6 +24,9 @@ app.post('/registration' , (apiReq , apiRes) => {
     handleRegistration(apiReq , apiRes)
 })
 
+app.get('/login/:username/:password' , (apiReq , apiRes) => {
+    handleLogin(apiReq , apiRes)
+})
 
 
 app.listen(4000 , () => {
