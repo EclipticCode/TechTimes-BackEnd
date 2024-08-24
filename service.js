@@ -7,7 +7,6 @@ const jwtUserkey = process.env.JWT_USERKEY ;
 
 
 // Registration 
-
 const handleRegistration = async (apiReq , apiRes) => {
    try {
     const { username , password } = apiReq.body
@@ -24,6 +23,7 @@ const handleRegistration = async (apiReq , apiRes) => {
     apiRes.send(500).send("Internal server error")
    }
 }
+
 
 // Login
 const handleLogin = async (apiReq , apiRes) => {
