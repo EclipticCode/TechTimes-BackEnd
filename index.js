@@ -3,7 +3,7 @@ const cors = require ("cors")
 const bodyParser  = require ('body-parser')
 const { connectDb , mongoose } = require ('./db')
 require('dotenv').config();
-
+const { handleRegistration } = require('./service')
 
 const app = express();
 
@@ -18,6 +18,13 @@ app.get('/' , ( req , res) => {
     }
     res.send("Server working fine")
 })
+
+
+app.post('/registration' , (apiReq , apiRes) => {
+    handleRegistration(apiReq , apiRes)
+})
+
+
 
 app.listen(4000 , () => {
     console.log("Server started at 4000")
