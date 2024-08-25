@@ -7,6 +7,6 @@ This backend repository contains the server-side code for The Tech Times applica
 
 
 ## Endpoints
-- POST  /registration - Register a New User
-- GET  /login - Authenticate User and generate JWT token
+- `POST  /registration` - Register a New User
+- `GET  /login` - Authenticate User and generate JWT token
 
